@@ -7,7 +7,7 @@
 ## Installation
 1. Go to [chrome://extensions](chrome://extensions).
 2. Turn on "Development mode" on the top right.
-3. Drag [picee.crx](./release/picee.crx) into the page.
+3. Drag [picee.crx](https://github.com/jrainlau/picee/releases/download/1.0.0/picee.crx) into the page.
 4. Done.
 
 ## Usage
