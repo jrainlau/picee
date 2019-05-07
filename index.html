@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Picee | Using github as your image hosting service</title>
+  <link rel="stylesheet" href="style/element-ui.css">
+  <link rel="stylesheet" href="style/main.css">
+</head>
+<body>
+  <div id="app" @click="onUploaderFocus">
+    <div class="auth" v-if="loginMode">
+      <div class="auth-methods">
+        <span class="auth-methods-token" :class="{active: authMode === 'token'}" @click="changeAuthMode('token')">Access token</span>
+        <span class="auth-methods-account" :class="{active: authMode === 'account'}" @click="changeAuthMode('account')">Account & Password</span>
+      </div>
+  
+      <el-form v-if="authMode === 'token'" label-position="left" label-width="80px" class="auth-input">
+        <el-form-item label="Token">
+          <el-input v-model="githubToken"></el-input>
+        </el-form-item>
+        <el-form-item class="auth-input-btns">
+          <el-button @click="resetAuth">Reset</el-button>
+          <el-button type="primary" @click="submitAuth" :disabled="!githubToken">Auth</el-button>
+        </el-form-item>
+      </el-form>
+  
+      <el-form v-if="authMode === 'account'" label-position="left" label-width="80px" class="auth-input">
+        <el-form-item label="Account">
+          <el-input v-model="githubAccount"></el-input>
+        </el-form-item>
+        <el-form-item label="Password">
+          <el-input type="password" v-model="githubPassword"></el-input>
+        </el-form-item>
+        <el-form-item class="auth-input-btns">
+          <el-button @click="resetAuth">Reset</el-button>
+          <el-button type="primary" @click="submitAuth" :disabled="!githubAccount || !githubPassword">Auth</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+
+    <div class="upload" v-if="!loginMode">
+      <el-progress v-if="uploadProgress" class="upload-progress" :show-text="false" :stroke-width="6" :percentage="uploadProgress"></el-progress>
+
+      <div class="upload-project">
+        <el-tooltip content="eg. Username/Reponame">
+          <el-input size="mini" class="upload-project-input" placeholder="Repo" v-model="repoName"></el-input>
+        </el-tooltip>
+        <el-tooltip content="Folder path, default is ''">
+          <el-input size="mini" class="upload-project-input" placeholder="Folder" v-model="folderPath"></el-input>
+        </el-tooltip>
+        <el-tooltip content="Confirm">
+          <el-button size="mini" @click="setRepoName">
+            <i class="el-icon-check"></i>
+          </el-button>
+        </el-tooltip>
+      </div>
+
+      <div v-if="isRepoNameCorrect" @dragover.prevent @drop.stop.prevent="onDrop" class="upload-area target" :class="{'focus': uploaderFocus}" @paste="onPaste">
+        <label class="target" v-if="uploaderFocus" for="uploader"></label>
+        <input id="uploader" @change="onFileChange" type="file">
+        <h3 v-if="!previewImg">Select, paste or drag an image here</h3>
+        <img v-if="previewImg" class="target" :src="previewImg">
+      </div>
+
+      <div class="upload-link" v-if="isRepoNameCorrect">
+        <el-input ref="imgLink" size="mini" readonly :value="imgLink"></el-input>
+        <el-tooltip content="Copy to clipboard">
+          <el-button size="mini" :disabled="!imgLink" @click="copyUrl">
+            <i class="el-icon-document-copy"></i>
+          </el-button>
+        </el-tooltip>
+      </div>
+    </div>
+
+    <div v-if="!loginMode" class="tools">
+      <div class="tools-config">
+        <i class="tools-btn el-icon-s-operation" @click="showConfig = !showConfig"></i>
+        <div v-if="showConfig" class="tools-config-items">
+          <h5>Auto upload</h5>
+          <el-switch
+            v-model="autoUpload">
+          </el-switch>
+          <h5>Image max size (kb)</h5>
+          <el-input-number size="mini" :min="200" v-model="compressSize" :step="100"></el-input-number>
+        </div>
+      </div>
+      <div>
+        <el-tooltip content="Refresh">
+          <i class="tools-refresh tools-btn el-icon-refresh" @click="refresh"></i>
+        </el-tooltip>
+        <el-tooltip :disabled="isSameImage" v-if="!autoUpload" content="Upload">
+          <i class="tools-upload tools-btn el-icon-upload2" :disabled="isSameImage" @click="upload"></i>
+        </el-tooltip>
+        <el-tooltip content="Logout">
+          <i class="tools-logout tools-btn el-icon-switch-button" @click="logout"></i>
+        </el-tooltip>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="/js/vue.min.js"></script>
+  <script src="/js/element-ui.js"></script>
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>

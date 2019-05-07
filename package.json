@@ -1,0 +1,24 @@
+{
+  "name": "github-img",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jrainlau/github-img.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jrainlau/github-img/issues"
+  },
+  "homepage": "https://github.com/jrainlau/github-img#readme",
+  "dependencies": {
+    "element-ui": "^2.8.2",
+    "vue": "^2.6.10"
+  }
+}

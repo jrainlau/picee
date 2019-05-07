@@ -1,0 +1,21 @@
+{
+  "manifest_version": 2,
+  "name": "Picee",
+  "version": "0.0.1",
+  "description": "Using github as your image hosting service",
+  "homepage_url": "https://github.com/jrainlau/picee",
+  "icons": {
+    "16": "images/logo.png",
+    "48": "images/logo.png",
+    "128": "images/logo.png"
+  },
+  "browser_action": {
+    "default_title": "Picee | Using github as your image hosting service",
+    "default_popup": "index.html"
+  },
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "permissions": [
+    "notifications",
+    "webRequest"
+  ]
+}
