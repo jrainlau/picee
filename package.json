@@ -1,24 +1,16 @@
 {
-  "name": "github-img",
+  "name": "picee",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "description": "Using github as your image hosting service",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jrainlau/github-img.git"
+    "url": "git+https://github.com/jrainlau/picee.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["image", "image hosting service"],
+  "author": "Jrain Lau",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jrainlau/github-img/issues"
+    "url": "https://github.com/jrainlau/picee/issues"
   },
-  "homepage": "https://github.com/jrainlau/github-img#readme",
-  "dependencies": {
-    "element-ui": "^2.8.2",
-    "vue": "^2.6.10"
-  }
+  "homepage": "https://github.com/jrainlau/picee#readme"
 }
