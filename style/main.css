@@ -39,6 +39,10 @@ body {
   float: right;
   margin-left: 15px;
 }
+.auth-input a {
+  text-decoration: none;
+  color: #909399;
+}
 .upload {
   position: relative;
   padding: 15px;

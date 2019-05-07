@@ -17,8 +17,12 @@
       </div>
   
       <el-form v-if="authMode === 'token'" label-position="left" label-width="80px" class="auth-input">
-        <el-form-item label="Token">
+        <el-form-item>
           <el-input v-model="githubToken"></el-input>
+          <span slot="label">
+            Token
+            <a href="https://github.com/settings/tokens/new" target="_blank"><i class="el-icon-question"></i></a>
+          </span>
         </el-form-item>
         <el-form-item class="auth-input-btns">
           <el-button @click="resetAuth">Reset</el-button>
