@@ -31,7 +31,7 @@ function chooseImg (e, cb, maxsize = 0) {
     return
   }
 
-  if (!/\/(?:jpeg|jpg|png)/i.test(file.type)) {
+  if (!/\/(?:jpeg|jpg|png|gif)/i.test(file.type)) {
     return
   }
 
