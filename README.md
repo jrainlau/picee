@@ -1,6 +1,6 @@
 # Picee
 
-![](./preview/logo.png)
+![](./overview/logo.png)
 
 **Picee** is a chrome extension for people to use Github as their image hosting service.
 
@@ -19,19 +19,19 @@ Install from Chrome webstore: [Picee](https://chrome.google.com/webstore/detail/
 
 Before using **Picee**, you should make authentication with Github. **Picee** supports both *Github oAuth token* and *Github account and password*.
 
-![](./preview/login.gif)
+![](./overview/login.gif)
 
 > **Picee** uses the token or account & password only for requesting Github apis, will never send to any other places.
 
 After authentication, type the repo name and folder path, then click the check button.
 
-![](./preview/usage-2.gif)
+![](./overview/usage-2.gif)
 
 > Repo name must be like **Username/Reponame**. Folder path could be blank, default to the repo's root.
 
 You can select, paste or drag an image to the dashed area, then click the upload button (or set autoupload from the configuration). Once upload successed, the download url would be placed in the output area.
 
-![](./preview/usage-1.gif)
+![](./overview/usage-1.gif)
 
 > If upload GIF, please set the "Max upload size" to be larger than the GIF, nor the GIF you uploaded would be static.
 
