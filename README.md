@@ -30,6 +30,8 @@ You can select, paste or drag an image to the dashed area, then click the upload
 
 ![](./preview/usage-1.gif)
 
+> If upload GIF, please set the "Max upload size" to be larger than the GIF, nor the GIF you uploaded would be static.
+
 Enjoy!
 
 ## Lisence
