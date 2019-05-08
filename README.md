@@ -5,7 +5,7 @@
 **Picee** is a chrome extension for people to use Github as their image hosting service.
 
 ## Installation
-Go to [Chrome webstore](https://chrome.google.com/webstore) and search **Picee**.
+Install from Chrome webstore: [Picee](https://chrome.google.com/webstore/detail/picee/nmeeieecbmdnilkkaliknhkkakonobbc)
 
 ## Installation for developer
 1. Go to [chrome://extensions](chrome://extensions).
