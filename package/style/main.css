@@ -3,6 +3,7 @@ body {
   width: 360px;
   margin: 0;
   padding: 0;
+  font-size: 12px;
 }
 .auth-methods {
   display: flex;
@@ -111,6 +112,38 @@ body {
 .upload-link button {
   border-radius: 0 4px 4px 0;
 }
+.history {
+  padding: 15px;
+  max-height: 322px;
+  box-sizing: border-box;
+  overflow: scroll;
+}
+.history ul {
+  padding: 0;
+}
+.history-detail-img {
+  display: block;
+  width: 100%;
+  height: 146px;
+  border: 3px dashed #DCDFE6;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  outline: none;
+}
+.history-detail-img img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+.history-detail-link {
+  display: flex;
+}
+.history-detail-link input {
+  border-radius: 4px 0 0 4px;
+}
+.history-detail-link button {
+  border-radius: 0 4px 4px 0;
+}
 .tools {
   padding: 5px 15px;
   background: #EBEEF5;
@@ -126,6 +159,9 @@ body {
 }
 .tools-config-items h5 .checkbox {
   margin-right: 5px;
+}
+.tools-config i {
+  margin-right: 15px;
 }
 .tools-btn {
   cursor: pointer;

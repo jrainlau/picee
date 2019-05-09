@@ -13,12 +13,14 @@ new Vue({
   el: '#app',
   data () {
     return {
+      // auth
       loginMode: true,
       authMode: 'token',
       githubToken: '',
       githubAccount: '',
       githubPassword: '',
 
+      // upload
       repoName: '',
       folderPath: '',
       isRepoNameCorrect: false,
@@ -26,15 +28,19 @@ new Vue({
       imgBase64: '',
       imgLink: '',
       fileName: '',
+      ableToUpload: true,
 
+      // config
       autoUpload: false,
       uploaderFocus: false,
       uploadProgress: 0,
       compressSize: 0,
       showConfig: false,
+      setMaxSize: false,
 
-      isSameImage: false,
-      setMaxSize: false
+      // history
+      historyMode: false,
+      uploadHistory: []
     }
   },
   async mounted () {
@@ -66,6 +72,11 @@ new Vue({
     if (compressSize) {
       this.compressSize = Number(compressSize)
       this.setMaxSize = true
+    }
+
+    const uploadHistory = localStorage.getItem('picee_history')
+    if (uploadHistory) {
+      this.uploadHistory = JSON.parse(uploadHistory)
     }
   },
   watch: {
@@ -100,6 +111,7 @@ new Vue({
       localStorage.removeItem('picee_repo')
       localStorage.removeItem('picee_folder')
       localStorage.removeItem('picee_compress_size')
+      localStorage.removeItem('picee_history')
       this.resetAuth()
     },
     resetAuth () {
@@ -144,12 +156,14 @@ new Vue({
       this.imgBase64 = ''
       this.previewImg = ''
       this.imgLink = ''
+      this.ableToUpload = true
     },
     onUploaderFocus (e) {
       this.uploaderFocus = e.target.classList.contains('target')
     },
     getImage (url, fileName) {
-      this.isSameImage = false
+      this.ableToUpload = false
+      this.imgLink = ''
       this.imgBase64 = url
       this.previewImg = url
       this.fileName = fileName.replace('.', `.${Math.random().toString(36).substr(2)}.`)
@@ -178,22 +192,20 @@ new Vue({
       const { url, fileName } = await paste(e, this.setMaxSize ? this.compressSize * 1024 : null)
       this.getImage(url, fileName)
     },
-    copyUrl () {
-      this.$refs['imgLink'].select()
+    copyUrl (e, name = 'imgLink') {
+      let refItem = this.$refs[name]
+      if (refItem instanceof Array) {
+        refItem = refItem[0]
+      }
+      refItem.select()
       document.execCommand('copy')
-      chrome.notifications.create(null, {
-        type: 'basic',
-        iconUrl: this.imgBase64,
-        title: 'Copy success',
-        message: 'Image url has been copied to cliboard.'
-      });
     },
     async upload () {
-      if (this.isSameImage) {
+      if (this.ableToUpload) {
         return
       }
 
-      this.isSameImage = true
+      this.ableToUpload = true
 
       this.uploadProgress = parseInt(Math.random() * 20)
       const result = await $fetch({
@@ -211,15 +223,22 @@ new Vue({
           this.uploadProgress = 0
         }, 2000)
 
-        chrome.notifications.create(null, {
+        this.imgLink = result.data.content.download_url
+        this.uploaderFocus = false
+
+        this.uploadHistory.unshift({
+          time: (new Date()).toLocaleString(),
+          imgLink: result.data.content.download_url
+        })
+
+        localStorage.setItem('picee_history', JSON.stringify(this.uploadHistory))
+
+        chrome.notifications && chrome.notifications.create(null, {
           type: 'basic',
           iconUrl: this.imgBase64,
           title: 'Upload success',
           message: 'Image has been uploaded.'
         });
-
-        this.imgLink = result.data.content.download_url
-        this.uploaderFocus = false
       } else {
         this.uploadProgress = 0
         alert(`errCode: ${result.status}\nPlease check the repo name or your network and try again.`)

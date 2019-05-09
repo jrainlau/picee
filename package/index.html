@@ -10,6 +10,7 @@
 </head>
 <body>
   <div id="app" @click="onUploaderFocus">
+    <!-- Auth start -->
     <div class="auth" v-if="loginMode">
       <div class="auth-methods">
         <span class="auth-methods-token" :class="{active: authMode === 'token'}" @click="changeAuthMode('token')">Access token</span>
@@ -43,9 +44,11 @@
         </el-form-item>
       </el-form>
     </div>
+    <!-- Auth end -->
 
-    <div class="upload" v-if="!loginMode">
-      <el-progress v-if="uploadProgress" class="upload-progress" :show-text="false" :stroke-width="6" :percentage="uploadProgress"></el-progress>
+    <!-- Upload start -->
+    <div class="upload" v-if="!loginMode && !historyMode">
+      <el-progress v-show="uploadProgress" class="upload-progress" :show-text="false" :stroke-width="6" :percentage="uploadProgress"></el-progress>
 
       <div class="upload-project">
         <el-tooltip content="eg. Username/Reponame">
@@ -77,10 +80,41 @@
         </el-tooltip>
       </div>
     </div>
+    <!-- Upload end -->
 
+    <!-- History start -->
+    <div class="history" v-if="historyMode">
+      <el-timeline>
+        <el-timeline-item v-for="(item, index) in uploadHistory" :key="index" :timestamp="item.time" placement="top">
+          <el-card>
+            <div class="history-detail">
+              <a class="history-detail-img" :href="item.imgLink" target="_blank">
+                <img :src="item.imgLink">
+              </a>
+              <div class="history-detail-link">
+                <el-input :ref="`imgLink_${index}`" :value="item.imgLink" readonly size="mini"></el-input>
+                <el-tooltip content="Copy to clipboard">
+                  <el-button size="mini" @click="copyUrl($event, `imgLink_${index}`)">
+                    <i class="el-icon-document-copy"></i>
+                  </el-button>
+                </el-tooltip>
+              </div>
+            </div>
+          </el-card>
+        </el-timeline-item>
+      </el-timeline>
+    </div>
+    <!-- History end -->
+
+    <!-- Config start -->
     <div v-if="!loginMode" class="tools">
       <div class="tools-config">
-        <i class="tools-btn el-icon-s-operation" @click="showConfig = !showConfig"></i>
+        <el-tooltip content="Configuration">
+          <i class="tools-btn el-icon-s-operation" @click="showConfig = !showConfig"></i>
+        </el-tooltip>
+        <el-tooltip content="History">
+          <i class="tools-btn el-icon-time" @click="historyMode = !historyMode"></i>
+        </el-tooltip>
         <div v-if="showConfig" class="tools-config-items">
           <h5>Auto upload</h5>
           <el-switch
@@ -97,19 +131,20 @@
         <el-tooltip content="Refresh">
           <i class="tools-refresh tools-btn el-icon-refresh" @click="refresh"></i>
         </el-tooltip>
-        <el-tooltip :disabled="isSameImage" v-if="!autoUpload" content="Upload">
-          <i class="tools-upload tools-btn el-icon-upload2" :disabled="isSameImage" @click="upload"></i>
+        <el-tooltip :disabled="ableToUpload" v-if="!autoUpload" content="Upload">
+          <i class="tools-upload tools-btn el-icon-upload2" :disabled="ableToUpload" @click="upload"></i>
         </el-tooltip>
         <el-tooltip content="Logout">
           <i class="tools-logout tools-btn el-icon-switch-button" @click="logout"></i>
         </el-tooltip>
       </div>
     </div>
+    <!-- Config end -->
   </div>
 
 
-  <script src="/js/vue.min.js"></script>
-  <script src="/js/element-ui.js"></script>
-  <script type="module" src="/js/main.js"></script>
+  <script src="js/vue.min.js"></script>
+  <script src="js/element-ui.js"></script>
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>
