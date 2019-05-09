@@ -113,7 +113,7 @@
           <i class="tools-btn el-icon-s-operation" @click="showConfig = !showConfig"></i>
         </el-tooltip>
         <el-tooltip content="History">
-          <i class="tools-btn el-icon-time" @click="historyMode = !historyMode"></i>
+          <i class="tools-btn el-icon-time" :disabled="!uploadHistory.length" @click="historyMode = !historyMode"></i>
         </el-tooltip>
         <div v-if="showConfig" class="tools-config-items">
           <h5>Auto upload</h5>
