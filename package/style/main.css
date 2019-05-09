@@ -121,6 +121,11 @@ body {
 .tools-config-items h5 {
   margin: 15px 0 5px 0;
   font-weight: normal;
+  display: flex;
+  align-items: center;
+}
+.tools-config-items h5 .checkbox {
+  margin-right: 5px;
 }
 .tools-btn {
   cursor: pointer;

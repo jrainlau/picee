@@ -41,7 +41,7 @@ function chooseImg (e, cb, maxsize = 0) {
     let img = new Image()
 
     // 如果图片小于 200kb，不压缩
-    if (maxsize === 0 || result.length <= maxsize) {
+    if (maxsize === null || result.length <= maxsize) {
       toPreviewer(result, file.name, cb)
       return
     }

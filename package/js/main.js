@@ -30,10 +30,11 @@ new Vue({
       autoUpload: false,
       uploaderFocus: false,
       uploadProgress: 0,
-      compressSize: 400,
+      compressSize: 0,
       showConfig: false,
 
-      isSameImage: false
+      isSameImage: false,
+      setMaxSize: false
     }
   },
   async mounted () {
@@ -64,6 +65,7 @@ new Vue({
     const compressSize = localStorage.getItem('picee_compress_size')
     if (compressSize) {
       this.compressSize = Number(compressSize)
+      this.setMaxSize = true
     }
   },
   watch: {
@@ -74,8 +76,18 @@ new Vue({
         localStorage.removeItem('picee_auto_upload')
       }
     },
+    setMaxSize (val) {
+      if (!val) {
+        localStorage.removeItem('picee_compress_size')
+      } else {
+        localStorage.setItem('picee_compress_size', this.compressSize)
+      }
+    },
     compressSize (val) {
-      localStorage.setItem('picee_compress_size', val)
+      if (this.setMaxSize) {
+        this.compressSize = val
+        localStorage.setItem('picee_compress_size', val)
+      }
     }
   },
   methods: {
@@ -155,15 +167,15 @@ new Vue({
       }
       chooseImg(imgEvent, (url, fileName) => {
         this.getImage(url, fileName)
-      }, this.compressSize * 1024)
+      }, this.setMaxSize ? this.compressSize * 1024 : null)
     },
     onFileChange (e) {
       chooseImg(e, (url, fileName) => {
         this.getImage(url, fileName)
-      }, this.compressSize * 1024)
+      }, this.setMaxSize ? this.compressSize * 1024 : null)
     },
     async onPaste (e) {
-      const { url, fileName } = await paste(e, this.compressSize * 1024)
+      const { url, fileName } = await paste(e, this.setMaxSize ? this.compressSize * 1024 : null)
       this.getImage(url, fileName)
     },
     copyUrl () {
