@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Picee",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Using github as your image hosting service",
   "homepage_url": "https://github.com/jrainlau/picee",
   "icons": {

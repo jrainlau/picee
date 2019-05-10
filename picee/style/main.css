@@ -151,6 +151,9 @@ body {
   justify-content: space-between;
   align-items: baseline;
 }
+.tools-config-items {
+  margin-bottom: 10px;
+}
 .tools-config-items h5 {
   margin: 15px 0 5px 0;
   font-weight: normal;

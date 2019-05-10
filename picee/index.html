@@ -72,7 +72,7 @@
       </div>
 
       <div class="upload-link" v-if="isRepoNameCorrect">
-        <el-input ref="imgLink" size="mini" readonly :value="imgLink"></el-input>
+        <el-input ref="imgLink" size="mini" readonly :value="copyAsMarkdown ? `![image](${imgLink})` : imgLink"></el-input>
         <el-tooltip content="Copy to clipboard">
           <el-button size="mini" :disabled="!imgLink" @click="copyUrl">
             <i class="el-icon-document-copy"></i>
@@ -92,7 +92,7 @@
                 <img :src="item.imgLink">
               </a>
               <div class="history-detail-link">
-                <el-input :ref="`imgLink_${index}`" :value="item.imgLink" readonly size="mini"></el-input>
+                <el-input :ref="`imgLink_${index}`" :value="copyAsMarkdown ? `![image](${item.imgLink})` : item.imgLink" readonly size="mini"></el-input>
                 <el-tooltip content="Copy to clipboard">
                   <el-button size="mini" @click="copyUrl($event, `imgLink_${index}`)">
                     <i class="el-icon-document-copy"></i>
@@ -116,17 +116,14 @@
           <i class="tools-btn el-icon-time" :disabled="!uploadHistory.length" @click="historyMode = !historyMode"></i>
         </el-tooltip>
         <div v-if="showConfig" class="tools-config-items">
-          <h5>Auto upload</h5>
-          <el-switch
-            v-model="autoUpload">
-          </el-switch>
-          <h5>
-            <el-checkbox class="checkbox" v-model="setMaxSize"></el-checkbox>
-            Image max size (kb) {{compressSize}}
-          </h5>
+          <h5><el-checkbox class="checkbox" v-model="autoUpload">Auto upload</el-checkbox></h5>
+          <h5><el-checkbox class="checkbox" v-model="renameWithHash">Rename the image with a hash</el-checkbox></h5>
+          <h5><el-checkbox class="checkbox" v-model="copyAsMarkdown">Copy url as markdown format</el-checkbox></h5>
+          <h5><el-checkbox class="checkbox" v-model="setMaxSize">Image max size (kb)</el-checkbox></h5>
           <el-input-number :disabled="!setMaxSize" size="mini" :min="200" v-model="compressSize" :step="100"></el-input-number>
         </div>
       </div>
+
       <div>
         <el-tooltip content="Refresh">
           <i class="tools-refresh tools-btn el-icon-refresh" @click="refresh"></i>

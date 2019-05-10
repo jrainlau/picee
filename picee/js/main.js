@@ -37,6 +37,8 @@ new Vue({
       compressSize: 0,
       showConfig: false,
       setMaxSize: false,
+      copyAsMarkdown: false,
+      renameWithHash: true,
 
       // history
       historyMode: false,
@@ -166,7 +168,7 @@ new Vue({
       this.imgLink = ''
       this.imgBase64 = url
       this.previewImg = url
-      this.fileName = fileName.replace('.', `.${Math.random().toString(36).substr(2)}.`)
+      this.fileName = this.renameWithHash ? fileName.replace('.', `.${Math.random().toString(36).substr(2)}.`) : fileName
 
       if (this.autoUpload) {
         this.upload()
@@ -216,6 +218,12 @@ new Vue({
           content: this.imgBase64.split(',')[1]
         }
       }).catch(e => e)
+
+      if (result.status === 422) {
+        this.uploadProgress = 0
+        alert(`It\'s not allow to upload an exists image named "${this.fileName}"\nYou could check the "Rename the image with a hash" option to avoid this error.`)
+        return
+      }
 
       if (result.data) {
         this.uploadProgress = 100
