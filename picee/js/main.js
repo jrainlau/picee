@@ -80,6 +80,20 @@ new Vue({
     if (uploadHistory) {
       this.uploadHistory = JSON.parse(uploadHistory)
     }
+
+    const copyAsMarkdown = localStorage.getItem('picee_copy_as_markdown')
+    if (copyAsMarkdown) {
+      this.copyAsMarkdown = true
+    } else {
+      this.copyAsMarkdown = false
+    }
+
+    const renameWithHash = localStorage.getItem('picee_rename_with_hash')
+    if (renameWithHash) {
+      this.renameWithHash = true
+    } else {
+      this.renameWithHash = false
+    }
   },
   watch: {
     autoUpload (val) {
@@ -100,6 +114,20 @@ new Vue({
       if (this.setMaxSize) {
         this.compressSize = val
         localStorage.setItem('picee_compress_size', val)
+      }
+    },
+    copyAsMarkdown (val) {
+      if (val) {
+        localStorage.setItem('picee_copy_as_markdown', true)
+      } else {
+        localStorage.removeItem('picee_copy_as_markdown')
+      }
+    },
+    renameWithHash (val) {
+      if (val) {
+        localStorage.setItem('picee_rename_with_hash', true)
+      } else {
+        localStorage.removeItem('picee_rename_with_hash')
       }
     }
   },
