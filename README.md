@@ -10,10 +10,10 @@ Install from Chrome webstore: [Picee](https://chrome.google.com/webstore/detail/
 ## Installation for developer
 1. Go to [chrome://extensions](chrome://extensions).
 2. Turn on "Development mode" on the top right.
-3. Drag [picee.crx](https://github.com/jrainlau/picee/releases/download/1.3.0/picee.crx) into the page.
+3. Drag [picee.crx](https://github.com/jrainlau/picee/releases/download/1.4.0/picee.crx) into the page.
 4. Done.
 
-> PS: If Chrome tells you that **Picee** was unsafety, you can unzip [picee.zip](https://github.com/jrainlau/picee/releases/download/1.3.0/picee.zip), and install it by "install unzip extentions" from the top left.
+> PS: If Chrome tells you that **Picee** was unsafety, you can unzip [picee.zip](https://github.com/jrainlau/picee/releases/download/1.4.0/picee.zip), and install it by "install unzip extentions" from the top left.
 
 ## Usage
 
