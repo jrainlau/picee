@@ -176,7 +176,7 @@ new Vue({
       if (this.repoName.split('/').length === 2) {
         this.isRepoNameCorrect = true
         localStorage.setItem('picee_repo', this.repoName)
-        localStorage.setItem('picee_folder', this.folderPath)
+        localStorage.setItem('picee_folder', this.folderPath.replace(/\/$/g, ''))
       } else {
         alert('Illegal project name!')
         this.repoName = localStorage.getItem('picee_repo') || ''
